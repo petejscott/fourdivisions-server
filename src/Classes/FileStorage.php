@@ -2,7 +2,7 @@
 
 class FileStorage implements IStorage
 {
-	private $path = '/var/www/sites/4d/src/Data/';
+	private $path = '/var/www/sites/fourdivisions-server/src/Data/';
 	
 	public function GetUniqueId($prefix)
 	{
