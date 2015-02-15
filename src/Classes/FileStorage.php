@@ -1,7 +1,5 @@
 <?php
 
-require_once('IStorage.php');
-
 class FileStorage implements IStorage
 {
 	private $path = '/var/www/sites/4d/src/Data/';

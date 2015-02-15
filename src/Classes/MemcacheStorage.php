@@ -1,7 +1,5 @@
 <?php
 
-require_once('IStorage.php');
-
 class MemcacheStorage implements IStorage
 {
 	private $cache;

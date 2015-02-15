@@ -17,7 +17,8 @@ class Bootstrap
 	}
 	
 	private function load()
-	{		
+	{
+		require_once 'Classes/IStorage.php';
 		require_once 'Classes/FileStorage.php';
 		require_once 'Classes/MemcacheStorage.php';
 		
