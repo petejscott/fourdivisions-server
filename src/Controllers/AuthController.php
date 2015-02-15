@@ -2,6 +2,19 @@
 
 class AuthController extends Controller
 {	
+	public function GET_APIKey($params)
+	{
+		if ($this->IsXMLHTTPRequest)
+		{
+			$result = new JSONResult("hello ajax");
+		}
+		else
+		{
+			$result = new ViewResult('AuthView', "hello");
+		}
+		$result->AddError(array("Error1","Error2"));
+		return $result;
+	}
 	public function PUT_APIKey($params)
 	{
 		// validate params and verb

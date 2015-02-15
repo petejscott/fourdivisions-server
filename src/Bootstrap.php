@@ -30,6 +30,7 @@ class Bootstrap
 		
 		require_once 'Result/ActionResult.php';
 		require_once 'Result/RawResult.php';
+		require_once 'Result/ViewResult.php';
 		require_once 'Result/JSONResult.php';
 		
 		require_once 'Controllers/Controller.php';

@@ -11,7 +11,7 @@ class RouteConfig
 	
 	public function AddRoute(Route $route)
 	{
-		if ($route === null) throw new InvalidArgumentException("Null $route");
+		if ($route === null) throw new InvalidArgumentException('Null $route');
 		if (!$route->ControllerObject instanceof Controller)
 		{
 			throw new InvalidArgumentException("Route defines a ControllerObject that is not an instance of Controller");

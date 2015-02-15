@@ -19,6 +19,11 @@ abstract class ActionResult
 		return $this->errors;
 	}
 	
+	public function Render()
+	{
+		return $this->GetContent();
+	}
+	
 	public function AddError($err)
 	{
 		if (is_array($err))

@@ -7,7 +7,7 @@ class RequestRouter
 	
 	public function __construct(RouteConfig $routeConfig)
 	{
-		if ($routeConfig === null) throw new InvalidArgumentException("null $routeConfig");		
+		if ($routeConfig === null) throw new InvalidArgumentException('Null $routeConfig');		
 		$this->routeConfig = $routeConfig;
 	}
 	

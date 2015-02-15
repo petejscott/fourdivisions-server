@@ -26,7 +26,7 @@ abstract class Controller
 		if ($result instanceof ActionResult) 
 		{
 			http_response_code($result->GetResponseCode());
-			print $result->GetContent();
+			print $result->Render();
 		}
 		return $result;
 	}
