@@ -33,7 +33,7 @@ class AuthController extends Controller
 		}
 		
 		// make sure we have a user Id
-		if ($userId === 0) throw new Exception("Invalid credentials");
+		if ($userId === 0) throw new OutOfBoundsException("Invalid credentials");
 		
 		// okay, create an API Key
 		$as = new APIService(new MemCacheStorage());

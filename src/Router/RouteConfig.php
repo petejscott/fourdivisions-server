@@ -11,16 +11,16 @@ class RouteConfig
 	
 	public function AddRoute(Route $route)
 	{
-		if ($route === null) throw new Exception("Null $route");
+		if ($route === null) throw new InvalidArgumentException("Null $route");
 		if (!$route->ControllerObject instanceof Controller)
 		{
-			throw new Exception("Route defines a ControllerObject that is not an instance of Controller");
+			throw new InvalidArgumentException("Route defines a ControllerObject that is not an instance of Controller");
 		}
 		foreach($this->routes as $r)
 		{
 			if ($r->ControllerName == $route->ControllerName)
 			{
-				throw new Exception("A Route with that ControllerName is already registered");
+				throw new OutOfRangeException("A Route with that ControllerName is already registered");
 			}
 		}
 		$this->routes->attach($route);

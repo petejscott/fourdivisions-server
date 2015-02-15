@@ -7,7 +7,7 @@ class RequestRouter
 	
 	public function __construct(RouteConfig $routeConfig)
 	{
-		if ($routeConfig === null) throw new Exception("null $routeConfig");		
+		if ($routeConfig === null) throw new InvalidArgumentException("null $routeConfig");		
 		$this->routeConfig = $routeConfig;
 	}
 	
@@ -26,7 +26,7 @@ class RequestRouter
 				break;
 			}
 		}
-		if ($route === null) throw new Exception("No matching controller in registered routes");
+		if ($route === null) throw new LogicException("No matching controller in registered routes");
 		
 		$method = null;
 		foreach ($route->Actions as $actionName => $controllerMethod)
@@ -37,11 +37,11 @@ class RequestRouter
 				break;
 			}			
 		}
-		if ($method === null) throw new Exception("No matching action in registered routes");
+		if ($method === null) throw new LogicException("No matching action in registered routes");
 		
 		if (!method_exists($route->ControllerObject, $method))
 		{
-			throw new Exception("Action in Controller is not callable ($method)");
+			throw new BadMethodCallException("Action in Controller is not callable ($method)");
 		}
 		
 		// let the controller know what kind of request it is dealing with
@@ -55,11 +55,11 @@ class RequestRouter
 	{
 		if (!isset($params['controller']) || empty($params['controller']))
 		{
-			throw new Exception("missing controller param");
+			throw new LogicException("missing controller param");
 		}
 		if (!isset($params['action']) || empty($params['action']))
 		{
-			throw new Exception("missing action param");
+			throw new LogicException("missing action param");
 		}
 	}
 	

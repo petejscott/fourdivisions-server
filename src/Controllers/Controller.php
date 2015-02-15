@@ -10,7 +10,7 @@ abstract class Controller
 		{
 			if (!isset($params[$expectedParam]) || empty($params[$expectedParam]))
 			{
-				throw new Exception("Missing expected parameter (" . $expectedParam . ")");
+				throw new LogicException("Missing expected parameter (" . $expectedParam . ")");
 			}
 		}
 	}

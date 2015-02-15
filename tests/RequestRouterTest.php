@@ -3,7 +3,7 @@ class RequestRouterTest extends PHPUnit_Framework_TestCase
 {
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testRouteCallWIthMissingControllerParam()
@@ -22,7 +22,7 @@ class RequestRouterTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testRouteCallWIthMissingActionParam()
@@ -41,7 +41,7 @@ class RequestRouterTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException BadMethodCallException
 	*
 	*/
 	public function testRouteCallWIthInvalidMethodForAction()
@@ -60,7 +60,7 @@ class RequestRouterTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testRouteCallWIthInvalidControllerParam()
@@ -79,7 +79,7 @@ class RequestRouterTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException OutOfRangeException
 	*
 	*/
 	public function testAddTwoRoutesWithSameControllerName()

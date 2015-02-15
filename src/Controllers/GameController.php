@@ -10,14 +10,14 @@ class GameController extends Controller
 		
 		// validate the provided API Key
 		$userId = $this->getUserIdFromAPIKey($params['apikey']);
-		if ($userId == null) throw new Exception("Invalid API Key; try authenticating");
+		if ($userId == null) throw new OutOfBoundsException("Invalid API Key; try authenticating");
 		
 		// future code: load a User using userId, and validate user can view this game
 		
 		// get the game
 		$encGame = $this->retrieveEncodedGameObject($params['gameId']);
 		// make sure the game actually exists
-		if ($encGame === null) throw new Exception("Invalid Game; check the gameId");
+		if ($encGame === null) throw new OutOfBoundsException("Invalid Game; check the gameId");
 		
 		$game = json_decode($encGame);
 		
@@ -33,7 +33,7 @@ class GameController extends Controller
 	}
 	public function PUT_Ply($params)
 	{
-		throw new Exception("Not implemented");
+		throw new BadMethodCallException("Not implemented");
 	}
 	
 	private function getUserIdFromAPIKey($apikey)

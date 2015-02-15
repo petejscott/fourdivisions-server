@@ -3,7 +3,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 {
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testGetPlysWithoutGameIdThrowsException()
@@ -19,7 +19,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testGetPlysWithoutApiKeyThrowsException()

@@ -3,7 +3,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 {
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testCreateAPIKeyWithoutEmailThrowsException()
@@ -16,7 +16,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException LogicException
 	*
 	*/
 	public function testCreateAPIKeyWithoutPasswordThrowsException()
@@ -29,7 +29,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	* @expectedException Exception
+	* @expectedException OutOfBoundsException
 	*
 	*/
 	public function testCreateAPIKeyWithInvalidCredentialsThrowsException()
