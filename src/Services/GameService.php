@@ -27,7 +27,7 @@ class GameService
 	public function GetGame($gameId)
 	{
 		$game = $this->storage->GetData($gameId);
-		return $game;
+		return json_decode($game);
 	}
 	
 	/**
