@@ -3,42 +3,25 @@
 abstract class ActionResult
 {
 	protected $responseCode = 200;
-	protected $content = null;
-	protected $errors = [];
+	protected $model = null;
 	
 	public function GetResponseCode()
 	{
 		return $this->responseCode;
 	}
-	public function GetContent()
+	public function GetModel()
 	{
-		return $this->content;
-	}
-	public function GetErrors()
-	{
-		return $this->errors;
+		return $this->model;
 	}
 	
 	public function Render()
 	{
-		return $this->GetContent();
+		return $this->GetModel();
 	}
 	
-	public function AddError($err)
+	public function __construct(Model $model, $responseCode = 200)
 	{
-		if (is_array($err))
-		{
-			$this->errors = array_merge($this->errors, $err);
-		}
-		else
-		{
-			$this->errors[] = $err;
-		}
-	}
-	
-	public function __construct($content, $responseCode = 200)
-	{
-		$this->content = $content;
+		$this->model = $model;
 		$this->responseCode = $responseCode;
 	}
 }

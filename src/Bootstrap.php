@@ -28,6 +28,10 @@ class Bootstrap
 		require_once 'Classes/APIService.php';
 		require_once 'Classes/GameService.php';
 		
+		require_once 'Models/Model.php';
+		require_once 'Models/APIKeyModel.php';
+		require_once 'Models/GameModel.php';
+		
 		require_once 'Result/ActionResult.php';
 		require_once 'Result/RawResult.php';
 		require_once 'Result/ViewResult.php';

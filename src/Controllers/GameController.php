@@ -46,10 +46,10 @@ class GameController extends Controller
 		// return plys array
 		if ($this->IsXMLHTTPRequest)
 		{
-			return new JSONResult($plys);
+			return new JSONResult(new GameModel($params['gameId'], $plys));
 		}
 		
-		return new RawResult($plys);
+		return new RawResult(new GameModel($params['gameId'], $plys));
 	}
 	public function PUT_Ply($params)
 	{

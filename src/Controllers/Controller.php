@@ -15,10 +15,8 @@ abstract class Controller
 		}
 	}
 	
-	public function Execute($method, $params)
+	public function Execute($method, $params) // : ActionResult
 	{
-		//TODO: Implement typed exceptions and handle them here.
-		// e.g. if NotAuthenticatedException, set a response code on the ActionResult of 401.
 		$result = $this->$method($params);
 		
 		if ($result instanceof ActionResult) 

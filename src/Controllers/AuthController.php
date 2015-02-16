@@ -18,15 +18,18 @@ class AuthController extends Controller
 	
 	public function GET_APIKey($params)
 	{
+		$model = new APIKeyModel("hello");
+		$model->AddError(array("Error1","Error2"));
+		
 		if ($this->IsXMLHTTPRequest)
 		{
-			$result = new JSONResult("hello ajax");
+			$model->APIKey = "hello ajax";
+			$result = new JSONResult($model);
 		}
 		else
 		{
-			$result = new ViewResult('AuthView', "hello");
+			$result = new ViewResult('AuthView', $model);
 		}
-		$result->AddError(array("Error1","Error2"));
 		return $result;
 	}
 	public function PUT_APIKey($params)
@@ -67,10 +70,10 @@ class AuthController extends Controller
 		
 		if ($this->IsXMLHTTPRequest)
 		{
-			return new JSONResult($key);
+			return new JSONResult(new APIKeyModel($key));
 		}
 		
-		return new RawResult($key);
+		return new RawResult(new APIKeyModel($key));
 	}
 	
 }

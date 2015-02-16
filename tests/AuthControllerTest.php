@@ -58,7 +58,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 				"email"=>"user1@example.com",
 				"password"=>"user1password"), 
 			"PUT");
-		$apikey = $result->GetContent();
+		$apikey = $result->GetModel()->APIKey;
 		$this->assertTrue(strlen($apikey) > 32);
 		$this->assertTrue(strncasecmp($apikey, '4d.apikey.', 10) == 0);
 		

@@ -9,11 +9,11 @@ class ViewResult extends ActionResult
 		include $this->viewPath . $this->view . ".php";
 	}
 	
-	public function __construct($view, $content, $responseCode = 200)
+	public function __construct($view, $model, $responseCode = 200)
 	{
 		if ($view === null || empty($view)) throw new InvalidArgumentException('Null or empty $view');
 		$this->view = $view;
-		parent::__construct($content, $responseCode);
+		parent::__construct($model, $responseCode);
 	}
 }
 

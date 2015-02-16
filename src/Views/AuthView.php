@@ -7,13 +7,13 @@
 <body>
 	<div style="color:#800;">
 		<?php  
-		foreach($this->GetErrors() as $err)
+		foreach($this->GetModel()->GetErrors() as $err)
 		{
 			echo "<p>$err</p>";
 		}
 		?>
 	</div>
 	<div>
-		<?php echo $this->GetContent(); ?>
+		<?php print_r($this->GetModel()); ?>
 	</div>
 </body>

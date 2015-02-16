@@ -4,30 +4,34 @@ class JSONResultTest extends PHPUnit_Framework_TestCase
 	
 	public function testJSONResultEncodesContent()
 	{
-		$result = new JSONResult(array("foo", "bar"));
-		$this->assertEquals('{"content":["foo","bar"],"errors":[]}', $result->Render());
+		$result = new JSONResult(new GameModel("foo", []));
+		$this->assertEquals('{"Id":"foo","Plys":[]}', $result->Render());
 	}
 	
 	public function testJSONResultReturnsProvidedResponseCode()
 	{
-		$result = new JSONResult("hello", 404);
+		$result = new JSONResult(new GameModel("foo", []), 404);
 		$this->assertEquals(404, $result->GetResponseCode());
 	}
 	
 	public function testJSONResultGetErrorsReturnsExpectedOutputForSingleError()
 	{
-		$result = new JSONResult("hello", 404);
-		$result->AddError("This is an error message");
-		$this->assertEquals(1, count($result->GetErrors()));
-		$this->assertEquals("This is an error message", $result->GetErrors()[0]);
+		$model = new GameModel("foo", []);
+		$model->AddError("This is an error message");
+		
+		$result = new JSONResult($model, 404);
+		$this->assertEquals(1, count($result->GetModel()->GetErrors()));
+		$this->assertEquals("This is an error message", $result->GetModel()->GetErrors()[0]);
 	}
 	
 	public function testJSONResultGetErrors()
 	{
-		$result = new JSONResult("hello", 404);
-		$result->AddError("This is an error message");
-		$result->AddError(array("This is too!","And so is this"));
-		$this->assertEquals(3, count($result->GetErrors()));
+		$model = new GameModel("foo", []);
+		$model->AddError("This is an error message");
+		$model->AddError(array("This is too!","And so is this"));
+		
+		$result = new JSONResult($model, 404);
+		$this->assertEquals(3, count($result->GetModel()->GetErrors()));
 	}
 
 }
