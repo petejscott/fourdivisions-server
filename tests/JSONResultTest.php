@@ -1,11 +1,22 @@
 <?php
+
+require_once 'Doubles/StubModel.php';
+
 class JSONResultTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testJSONResultEncodesContent()
 	{
-		$result = new JSONResult(new GameModel("foo", []));
-		$this->assertEquals('{"Id":"foo","Plys":[]}', $result->Render());
+		$result = new JSONResult(new StubModel("foo"));
+		$this->assertEquals('{"StringData":"foo","errors":[]}', $result->Render());
+	}
+	
+	public function testJSONResultEncodesErrors()
+	{
+		$model = new StubModel("foo");
+		$model->AddError("Error 1");
+		$result = new JSONResult($model);
+		$this->assertEquals('{"StringData":"foo","errors":["Error 1"]}', $result->Render());
 	}
 	
 	public function testJSONResultReturnsProvidedResponseCode()

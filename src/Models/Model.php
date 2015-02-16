@@ -1,6 +1,6 @@
 <?php 
 
-abstract class Model
+abstract class Model implements JsonSerializable
 {
 	protected $errors = [];
 	public function GetErrors()
@@ -17,6 +17,16 @@ abstract class Model
 		{
 			$this->errors[] = $err; 
 		}
+	}
+	
+	public function jsonSerialize()
+	{
+		$out = array();
+		foreach($this as $key => $value) 
+		{
+			$out[$key] = $value;
+		}
+		return $out;
 	}
 }
 

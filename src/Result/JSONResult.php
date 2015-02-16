@@ -1,18 +1,10 @@
 <?php 
 
-class JSONResult extends ActionResult implements JsonSerializable
+class JSONResult extends ActionResult
 {
-
 	public function Render()
 	{
 		return json_encode($this->GetModel());
-	}
-	
-	public function jsonSerialize()
-	{
-		return [
-            'model' => $this->GetModel()
-        ];
 	}
 }
 
