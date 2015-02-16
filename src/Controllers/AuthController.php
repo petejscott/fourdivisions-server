@@ -2,6 +2,20 @@
 
 class AuthController extends Controller
 {	
+
+	private $apiService = null;
+	
+	public function GetAPIService()
+	{
+		return $this->apiService;
+	}
+	
+	public function __construct(APIService $apiService)
+	{
+		if ($apiService === null) throw new InvalidArgumentException('Null $apiService');
+		$this->apiService = $apiService;
+	}
+	
 	public function GET_APIKey($params)
 	{
 		if ($this->IsXMLHTTPRequest)
@@ -49,8 +63,7 @@ class AuthController extends Controller
 		if ($userId === 0) throw new OutOfBoundsException("Invalid credentials");
 		
 		// okay, create an API Key
-		$as = new APIService(new MemCacheStorage());
-		$key = $as->CreateAPIKey($userId);
+		$key = $this->GetAPIService()->CreateAPIKey($userId);
 		
 		if ($this->IsXMLHTTPRequest)
 		{

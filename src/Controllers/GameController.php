@@ -3,6 +3,26 @@
 class GameController extends Controller
 {
 	
+	private $apiService = null;
+	private $gameService = null;
+	
+	public function GetAPIService()
+	{
+		return $this->apiService;
+	}
+	public function GetGameService()
+	{
+		return $this->gameService;
+	}
+	
+	public function __construct(APIService $apiService, GameService $gameService)
+	{
+		if ($apiService === null) throw new InvalidArgumentException('Null $apiService');
+		if ($gameService === null) throw new InvalidArgumentException('Null $gameService');
+		$this->apiService = $apiService;
+		$this->gameService = $gameService;
+	}
+	
 	public function GET_Plys($params) 
 	{		
 		// validate params 
@@ -38,20 +58,14 @@ class GameController extends Controller
 	
 	private function getUserIdFromAPIKey($apikey)
 	{
-		// create the APIService
-		$memStorage = new MemCacheStorage();
-		$as = new APIService($memStorage);
 		// validate the provided API Key
-		$userId = $as->ValidateAPIKey($apikey);
+		$userId = $this->GetAPIService()->ValidateAPIKey($apikey);
 		return $userId;
 	}
 	private function retrieveEncodedGameObject($gameId)
 	{
-		// create the GameService
-		$fileStorage = new FileStorage();
-		$gs = new GameService($fileStorage);
 		// get the game using the provided gameId
-		$game = $gs->GetGame($gameId);
+		$game = $this->GetGameService()->GetGame($gameId);
 		return $game;
 	}
 	

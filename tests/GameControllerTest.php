@@ -11,7 +11,10 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
 		
-		$gc = new GameController();
+		$gc = new GameController(
+			new APIService(new MemcacheStorage()),
+			new GameService(new FileStorage())
+		);
 		$result = $gc->GET_Plys(
 			array(
 				"apikey"=>$apikey), 
@@ -27,7 +30,10 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
 		
-		$gc = new GameController();
+		$gc = new GameController(
+			new APIService(new MemcacheStorage()),
+			new GameService(new FileStorage())
+		);
 		$result = $gc->GET_Plys(
 			array(
 				"gameId"=>"4d.game.empty"), 
@@ -39,7 +45,10 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
 		
-		$gc = new GameController();
+		$gc = new GameController(
+			new APIService(new MemcacheStorage()),
+			new GameService(new FileStorage())
+		);
 		$result = $gc->GET_Plys(
 			array(
 				"gameId"=>"4d.game.54dff62b775906.47811541",

@@ -46,7 +46,9 @@ class Bootstrap
 	{		
 		$authRouting = new Route();
 		$authRouting->ControllerName = "Auth";
-		$authRouting->ControllerObject = new AuthController();
+		$authRouting->ControllerObject = new AuthController(
+			new APIService(new MemcacheStorage())
+		);
 		$authRouting->Actions = [
 			"Auth" => "APIKey"
 		];
@@ -54,7 +56,10 @@ class Bootstrap
 		
 		$gameRouting = new Route();
 		$gameRouting->ControllerName = "Game";
-		$gameRouting->ControllerObject = new GameController();
+		$gameRouting->ControllerObject = new GameController(
+			new APIService(new MemcacheStorage()),
+			new GameService(new FileStorage())
+		);
 		$gameRouting->Actions = [
 			"Plys" => "Plys"
 		];

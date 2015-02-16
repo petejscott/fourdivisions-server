@@ -5,7 +5,10 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	public function testRoutePropertyAccessors()
 	{
 		$expectedControllerName = "RouteTestMock";
-		$expectedControllerObject = new GameController();
+		$expectedControllerObject = new GameController(
+			new APIService(new MemcacheStorage()),
+			new GameService(new FileStorage())
+		);
 		$expectedActions = array( 
 			"X" => "Y"
 		);
