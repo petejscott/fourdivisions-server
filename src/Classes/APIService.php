@@ -6,10 +6,7 @@ class APIService
 	
 	public function __construct(IStorage $storage)
 	{
-		if ($storage === null) 
-		{
-			die('null $storage');
-		}
+		if ($storage === null) throw new InvalidArgumentException('Null $storage');
 		$this->storage = $storage;
 	}
 	
