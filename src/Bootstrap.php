@@ -32,10 +32,10 @@ class Bootstrap
 		require_once 'Models/APIKeyModel.php';
 		require_once 'Models/GameModel.php';
 		
-		require_once 'Result/ActionResult.php';
-		require_once 'Result/RawResult.php';
-		require_once 'Result/ViewResult.php';
-		require_once 'Result/JSONResult.php';
+		require_once 'Results/ActionResult.php';
+		require_once 'Results/RawResult.php';
+		require_once 'Results/ViewResult.php';
+		require_once 'Results/JSONResult.php';
 		
 		require_once 'Controllers/Controller.php';
 		require_once 'Controllers/AuthController.php';
