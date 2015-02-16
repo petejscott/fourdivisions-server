@@ -19,8 +19,6 @@ abstract class Controller
 	{
 		//TODO: Implement typed exceptions and handle them here.
 		// e.g. if NotAuthenticatedException, set a response code on the ActionResult of 401.
-		// to that end, it might make sense to have a ResponseBuilder class passed in to this Execute method 
-		// by the RequestRouter, and let that handle all the ActionResult tweaking.
 		$result = $this->$method($params);
 		
 		if ($result instanceof ActionResult) 

@@ -44,6 +44,9 @@ class Bootstrap
 	
 	private function registerRoutes(RouteConfig $routeConfig)
 	{		
+		// TODO: Add a "default" action so that one doesn't need 
+		// to be explicitly declared (e.g. https://host/User routes to 
+		// UserController->GET_User() method.
 		$authRouting = new Route();
 		$authRouting->ControllerName = "Auth";
 		$authRouting->ControllerObject = new AuthController(
