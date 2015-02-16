@@ -1,10 +1,9 @@
 # fourdivisions-server
-PHP project for the fourdivisions applications.
 
 Just writing code and seeing where it takes me...
 (In progress)
 
-So far, this has turned into an MVC framework (lacking a cohesive concept of a model) that seems to have been inspired (at least in naming conventions) by .NET's MVC. For better or for worse.
+So far, this has turned into an MVC framework that seems to have been inspired (at least in naming conventions) by .NET's MVC. For better or for worse.
 
 The end goal is to have a server-side implementation of a chess application that can either directly serve content or expose that content via API calls (likely JSON-RPC).
 
@@ -14,7 +13,6 @@ My primary TODOs are:
 * Add the API (can release to production at this point and any point after)
 * Develop simple client-side functionality (separate repo: fourdivisions-webclient)
 * Implement actual users (currently allowing hard-coded credentials)
-* Introduce Models to be passed between Controllers and Views (via ActionResult implementations)
 * Develop the Views to enable this project to be used directly
 
 I'll get distracted from those goals and implement other behaviors in the meantime, but I'm okay with that.
@@ -33,7 +31,7 @@ The methods exposed via Route calls should return an implementation of ActionRes
 * JSONResult (which encodes the content and the errors to a JSON object, intended to be used for XMLHTTPRequests)
 * ViewResult (which provides the content to a separate .php file in a Views directory, allowing it to define what is rendered where).
 
-Note that, as mentioned above, this functionality does not yet implement the concept of a Model. When that's developed, the Model will be available in ActionResult->GetContent(), so that the ActionResult implementations and their clients can make use of the Model instead of content of arbitrary, undefined types.
+The ActionResults expect a Model object, and that Model is made available via GetModel(). When using a view, the $this context is that of the ActionResult (ViewResult). Errors can be added to the Model and are consequently available via GetModel()->GetErrors().
 
 # Warning
-I'm not the most competent PHP developer; I haven't used it much in the last few years, and I've missed out on a lot of new functionality (like namespaces). To that end, there'll probably be a lot of stupid code in here. Feel free to point that out, or even improve my work and send me a pull request.
+I'm not the most competent PHP developer; I haven't used it much in the last few years, and I've missed out on a lot of new functionality (like namespaces). To that end, there'll probably be a lot of stupid code in here. Feel free to point out mistakes and areas for improvements or just send me a pull request.
