@@ -23,10 +23,12 @@ class GameController extends Controller
 		$this->gameService = $gameService;
 	}
 	
-	public function GET_Plys($params) 
-	{		
+	public function GET_Game($params) 
+	{
 		// validate params 
 		$this->validateParams(array('apikey', 'gameId'), $params);
+		
+		$model = new GameModel();
 		
 		// validate the provided API Key
 		$userId = $this->GetAPIService()->ValidateAPIKey($params['apikey']);
@@ -36,18 +38,18 @@ class GameController extends Controller
 		
 		// get the game
 		$game = $this->GetGameService()->GetGame($params['gameId']);
-		// make sure the game actually exists
 		if ($game === null) throw new OutOfBoundsException("Invalid Game; check the gameId");
 		
-		$plys = $game->Plys;
+		$model->Id = $game->Id;
+		$model->Plys = $game->Plys;
 		
-		// return plys array
+		// return GameModel
 		if ($this->IsXMLHTTPRequest)
 		{
-			return new JSONResult(new GameModel($params['gameId'], $plys));
+			return new JSONResult($model);
 		}
 		
-		return new RawResult(new GameModel($params['gameId'], $plys));
+		return new RawResult($model);
 	}
 	public function PUT_Ply($params)
 	{

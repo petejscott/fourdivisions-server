@@ -6,7 +6,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 	* @expectedException LogicException
 	*
 	*/
-	public function testGetPlysWithoutGameIdThrowsException()
+	public function testGetGameWithoutGameIdThrowsException()
 	{
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
@@ -15,7 +15,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage()),
 			new GameService(new FileStorage())
 		);
-		$result = $gc->GET_Plys(
+		$result = $gc->GET_Game(
 			array(
 				"apikey"=>$apikey), 
 			"GET");
@@ -25,7 +25,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 	* @expectedException LogicException
 	*
 	*/
-	public function testGetPlysWithoutApiKeyThrowsException()
+	public function testGetGameWithoutApiKeyThrowsException()
 	{
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
@@ -34,13 +34,13 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage()),
 			new GameService(new FileStorage())
 		);
-		$result = $gc->GET_Plys(
+		$result = $gc->GET_Game(
 			array(
 				"gameId"=>"4d.game.empty"), 
 			"GET");
 	}
 	
-	public function testGetPlys()
+	public function testGetGame()
 	{
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
@@ -49,7 +49,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage()),
 			new GameService(new FileStorage())
 		);
-		$result = $gc->GET_Plys(
+		$result = $gc->GET_Game(
 			array(
 				"gameId"=>"4d.game.54dff62b775906.47811541",
 				"apikey"=>$apikey), 

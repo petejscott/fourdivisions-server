@@ -65,7 +65,7 @@ class Bootstrap
 			new GameService(new FileStorage())
 		);
 		$gameRouting->Actions = [
-			"Plys" => "Plys"
+			"Game" => "Game"
 		];
 		$routeConfig->AddRoute($gameRouting);
 		
