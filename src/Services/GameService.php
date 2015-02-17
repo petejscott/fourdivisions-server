@@ -11,12 +11,21 @@ class GameService
 	}
 	
 	/**
-	* Stores a provided Game object using a random name in the storage implementation.
+	* Stores a provided Game object using a random name (id) in the storage implementation.
 	*/
 	public function InsertGame($game)
 	{
 		$gameId = $this->storage->GetUniqueId('4d.game.');
 		$game->Id = $gameId; // set the Id on the game before saving
+		$this->storage->SetData($gameId, json_encode($game));
+		return $gameId;
+	}
+	
+	/**
+	* Stores a provided Game object using the provided name (id) in the storage implementation.
+	*/
+	public function UpdateGame($gameId, $game)
+	{
 		$this->storage->SetData($gameId, json_encode($game));
 		return $gameId;
 	}
