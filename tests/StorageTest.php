@@ -53,6 +53,9 @@ class StorageTest extends PHPUnit_Framework_TestCase
 		
 		$this->assertTrue($result !== false);
 		$this->assertEquals('{"data":"foo"}', $data);
+		
+		// cleanup
+		$sut->DeleteData($id);
 	}
 
 }
