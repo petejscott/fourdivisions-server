@@ -41,7 +41,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 	}
 	
 	public function testGetGame()
-	{
+	{		
 		// we need a valid auth for this
 		$apikey = $this->getValidApiKey();
 		

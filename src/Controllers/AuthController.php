@@ -16,22 +16,6 @@ class AuthController extends Controller
 		$this->apiService = $apiService;
 	}
 	
-	public function GET_APIKey($params)
-	{
-		$model = new APIKeyModel("hello");
-		$model->AddError(array("Error1","Error2"));
-		
-		if ($this->IsXMLHTTPRequest)
-		{
-			$model->APIKey = "hello ajax";
-			$result = new JSONResult($model);
-		}
-		else
-		{
-			$result = new ViewResult('AuthView', $model);
-		}
-		return $result;
-	}
 	public function PUT_APIKey($params)
 	{
 		// validate params and verb
