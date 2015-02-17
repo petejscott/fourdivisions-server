@@ -22,9 +22,6 @@ class Bootstrap
 		require_once 'Classes/FileStorage.php';
 		require_once 'Classes/MemcacheStorage.php';
 		
-		require_once 'Classes/User.php';
-		require_once 'Classes/Game.php';
-		
 		require_once 'Services/APIService.php';
 		require_once 'Services/GameService.php';
 		
