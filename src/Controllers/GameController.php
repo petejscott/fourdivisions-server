@@ -29,7 +29,7 @@ class GameController extends Controller
 		$this->validateParams(array('apikey', 'gameId'), $params);
 		
 		$model = new GameModel();
-		
+	
 		// validate the provided API Key
 		$userId = $this->GetAPIService()->ValidateAPIKey($params['apikey']);
 		if ($userId == null) throw new OutOfBoundsException("Invalid API Key; try authenticating");
