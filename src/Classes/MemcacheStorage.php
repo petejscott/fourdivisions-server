@@ -3,9 +3,18 @@
 class MemcacheStorage implements IStorage
 {
 	private $cache;
+	private $uniqueIdFactory = null;
 	
-	public function __construct()
+	public function GetUniqueIdFactory()
+	{		
+		return $this->uniqueIdFactory;
+	}	
+	
+	public function __construct(IUniqueIdFactory $uniqueIdFactory)
 	{
+		if ($uniqueIdFactory === null) throw new InvalidArgumentException('Null $uniqueId');
+		$this->uniqueIdFactory = $uniqueIdFactory;
+		
 		$this->cache = new Memcached('4d');
 		$memServers = $this->cache->getServerList();
 		if (empty($memServers)) 
@@ -13,10 +22,6 @@ class MemcacheStorage implements IStorage
 			$this->cache->setOption(Memcached::OPT_BINARY_PROTOCOL, true);
 			$this->cache->addServer('localhost', 11211);
 		}
-	}
-	public function GetUniqueId($prefix)
-	{
-		return $prefix.bin2hex(openssl_random_pseudo_bytes(16));
 	}
 	public function GetData($identifier) 
 	{

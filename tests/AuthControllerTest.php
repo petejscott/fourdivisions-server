@@ -9,7 +9,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	public function testCreateAPIKeyWithoutEmailThrowsException()
 	{
 		$ac = new AuthController(
-			new APIService(new MemcacheStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
 		$apikey = $ac->PUT_APIKey(
 			array(
@@ -24,7 +24,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	public function testCreateAPIKeyWithoutPasswordThrowsException()
 	{
 		$ac = new AuthController(
-			new APIService(new MemcacheStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
 		$apikey = $ac->PUT_APIKey(
 			array(
@@ -39,7 +39,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	public function testCreateAPIKeyWithInvalidCredentialsThrowsException()
 	{
 		$ac = new AuthController(
-			new APIService(new MemcacheStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
 		$apikey = $ac->PUT_APIKey(
 			array(
@@ -50,9 +50,9 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	
 	public function testCreateAPIKey()
 	{
-		$ac = new AuthController(
-			new APIService(new MemcacheStorage())
-		);
+		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
+		
+		$ac = new AuthController($as);
 		$result = $ac->PUT_APIKey(
 			array(
 				"email"=>"user1@example.com",
@@ -63,7 +63,6 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(strncasecmp($apikey, '4d.apikey.', 10) == 0);
 		
 		// cleanup
-		$as = new APIService(new MemCacheStorage());	
 		$as->RevokeAPIKey($apikey);
 	}
 

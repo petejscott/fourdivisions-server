@@ -10,7 +10,7 @@ class StorageTest extends PHPUnit_Framework_TestCase
 	
 	public function testInvalidIdentifierReturnsNull()
 	{
-		$sut = new FileStorage();
+		$sut = new FileStorage(new SimpleUniqueIdFactory());
 		$data = $sut->GetData('test.4d.some_made_up_identifier');
 		$this->assertEquals(null, $data);
 	}
@@ -18,15 +18,15 @@ class StorageTest extends PHPUnit_Framework_TestCase
 	public function testValidIdentifierReturnsFileContents()
 	{
 		$id = '4d.game.empty';
-		$sut = new FileStorage();
+		$sut = new FileStorage(new SimpleUniqueIdFactory());
 		$data = $sut->GetData($id);
 		$this->assertEquals('{}', $data);
 	}
 	
 	public function testWritingDataToFile()
 	{
-		$sut = new FileStorage();
-		$id = $sut->GetUniqueId('test.4d.');
+		$sut = new FileStorage(new SimpleUniqueIdFactory());
+		$id = $sut->GetUniqueIdFactory()->GetUniqueId('test.4d.');
 		$result = $sut->SetData($id, '{"data":"foo"}');
 		$data = $sut->GetData($id);
 		
@@ -39,14 +39,14 @@ class StorageTest extends PHPUnit_Framework_TestCase
 	
 	public function testInvalidMemcacheKeyReturnsNull()
 	{
-		$sut = new MemcacheStorage();
+		$sut = new MemcacheStorage(new SimpleUniqueIdFactory());
 		$data = $sut->GetData('test.4d.some_made_up_identifier');
 		$this->assertEquals(null, $data);
 	}
 	
 	public function testSetAndGetOnMemcache()
 	{
-		$sut = new MemcacheStorage();
+		$sut = new MemcacheStorage(new SimpleUniqueIdFactory());
 		$id = 'testmemcacheid';
 		$result = $sut->SetData($id, '{"data":"foo"}');
 		$data = $sut->GetData($id);

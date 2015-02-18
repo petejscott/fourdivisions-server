@@ -2,7 +2,7 @@
 
 interface IStorage 
 {
-	public function GetUniqueId($prefix);
+	public function GetUniqueIdFactory();
 	public function GetData($identifier);
 	public function SetData($identifier, $data);
 	public function DeleteData($identifier);

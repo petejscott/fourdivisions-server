@@ -4,7 +4,7 @@ class GameServiceTest extends PHPUnit_Framework_TestCase
 
 	public function testInsertThenGetGame()
 	{
-		$storage = new FileStorage();
+		$storage = new FileStorage(new SimpleUniqueIdFactory());
 		$game = new GameModel();
 		$sut = new GameService($storage);
 		$gameId = $sut->InsertGame($game);
@@ -20,7 +20,7 @@ class GameServiceTest extends PHPUnit_Framework_TestCase
 	
 	public function testInsertThenUpdateThenGetGame()
 	{
-		$storage = new FileStorage();
+		$storage = new FileStorage(new SimpleUniqueIdFactory());
 		$game = new GameModel();
 		$sut = new GameService($storage);
 		

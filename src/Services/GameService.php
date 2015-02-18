@@ -15,7 +15,7 @@ class GameService
 	*/
 	public function InsertGame($game)
 	{
-		$gameId = $this->storage->GetUniqueId('4d.game.');
+		$gameId = $this->storage->GetUniqueIdFactory()->GetUniqueId('4d.game.');
 		$game->Id = $gameId; // set the Id on the game before saving
 		$this->storage->SetData($gameId, json_encode($game));
 		return $gameId;

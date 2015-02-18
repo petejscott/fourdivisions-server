@@ -6,8 +6,8 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	{
 		$expectedControllerName = "RouteTestMock";
 		$expectedControllerObject = new GameController(
-			new APIService(new MemcacheStorage()),
-			new GameService(new FileStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
+			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$expectedActions = array( 
 			"X" => "Y"

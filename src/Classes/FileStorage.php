@@ -3,10 +3,17 @@
 class FileStorage implements IStorage
 {
 	private $path = '/var/www/sites/fourdivisions-server/src/Data/';
+	private $uniqueIdFactory = null;
 	
-	public function GetUniqueId($prefix)
-	{
-		return uniqid ($prefix, true);
+	public function GetUniqueIdFactory()
+	{		
+		return $this->uniqueIdFactory;
+	}	
+	
+	public function __construct(IUniqueIdFactory $uniqueIdFactory)
+	{		
+		if ($uniqueIdFactory === null) throw new InvalidArgumentException('Null $uniqueId');
+		$this->uniqueIdFactory = $uniqueIdFactory;
 	}
 	public function GetData($identifier) 
 	{

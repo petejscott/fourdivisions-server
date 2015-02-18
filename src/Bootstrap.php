@@ -18,6 +18,10 @@ class Bootstrap
 	
 	private function load()
 	{
+		require_once 'Classes/IUniqueIdFactory.php';
+		require_once 'Classes/SimpleUniqueIdFactory.php';
+		require_once 'Classes/SecureUniqueIdFactory.php';
+		
 		require_once 'Classes/IStorage.php';
 		require_once 'Classes/FileStorage.php';
 		require_once 'Classes/MemcacheStorage.php';
@@ -51,7 +55,8 @@ class Bootstrap
 		$authRouting = new Route();
 		$authRouting->ControllerName = "Auth";
 		$authRouting->ControllerObject = new AuthController(
-			new APIService(new MemcacheStorage())
+			new APIService(new MemcacheStorage(
+					new SecureUniqueIdFactory()))
 		);
 		$authRouting->Actions = [
 			"Auth" => "APIKey"
@@ -61,8 +66,12 @@ class Bootstrap
 		$gameRouting = new Route();
 		$gameRouting->ControllerName = "Game";
 		$gameRouting->ControllerObject = new GameController(
-			new APIService(new MemcacheStorage()),
-			new GameService(new FileStorage())
+			new APIService(
+				new MemcacheStorage(
+					new SecureUniqueIdFactory())),
+			new GameService(
+				new FileStorage(
+					new SimpleUniqueIdFactory()))
 		);
 		$gameRouting->Actions = [
 			"Game" => "Game"

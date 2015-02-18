@@ -15,7 +15,7 @@ class APIService
 	*/
 	public function CreateAPIKey($userId)
 	{
-		$key = $this->storage->GetUniqueId('4d.apikey.');
+		$key = $this->storage->GetUniqueIdFactory()->GetUniqueId('4d.apikey.');
 		$this->storage->SetData($key, $userId);
 		return $key;
 	}

@@ -12,8 +12,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		$apikey = $this->getValidApiKey();
 		
 		$gc = new GameController(
-			new APIService(new MemcacheStorage()),
-			new GameService(new FileStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
+			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
 			array(
@@ -31,8 +31,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		$apikey = $this->getValidApiKey();
 		
 		$gc = new GameController(
-			new APIService(new MemcacheStorage()),
-			new GameService(new FileStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
+			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
 			array(
@@ -46,8 +46,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		$apikey = $this->getValidApiKey();
 		
 		$gc = new GameController(
-			new APIService(new MemcacheStorage()),
-			new GameService(new FileStorage())
+			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
+			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
 			array(
@@ -65,14 +65,14 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 	
 	private function getValidApiKey()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$as = new APIService($storage);
 		$key = $as->CreateAPIKey(999);
 		return $key;
 	}
 	private function deleteValidApiKey()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$as = new APIService($storage);
 		$as->RevokeAPIKey(999);
 	}

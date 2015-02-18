@@ -4,7 +4,7 @@ class APIServiceTest extends PHPUnit_Framework_TestCase
 
 	public function testValidateValidAPIKey()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$sut = new APIService($storage);
 		$key = $sut->CreateAPIKey(1000);
 		
@@ -18,7 +18,7 @@ class APIServiceTest extends PHPUnit_Framework_TestCase
 	
 	public function testAPIKeyIsGoodEnoughLength()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$sut = new APIService($storage);
 		$key = $sut->CreateAPIKey(1000);
 		
@@ -30,7 +30,7 @@ class APIServiceTest extends PHPUnit_Framework_TestCase
 	
 	public function testValidateInvalidAPIKey()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$sut = new APIService($storage);
 		
 		$data = $sut->ValidateAPIKey('invalidapikey');
@@ -40,7 +40,7 @@ class APIServiceTest extends PHPUnit_Framework_TestCase
 	
 	public function testRevokeAPIKey()
 	{
-		$storage = new MemcacheStorage();
+		$storage = new MemcacheStorage(new SecureUniqueIdFactory());
 		$sut = new APIService($storage);
 		$key = $sut->CreateAPIKey(1000);
 		$sut->RevokeAPIKey($key);
