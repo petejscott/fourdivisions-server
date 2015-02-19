@@ -56,8 +56,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			"GET");
 		
 		$gameModel = $result->GetModel();
-		$this->assertTrue(is_array($gameModel->Plys));
-		$this->assertEquals(0, count($gameModel->Plys));
+		$this->assertTrue($result instanceof ViewResult);
+		$this->assertTrue($gameModel instanceof GameModel);
 		
 		// cleanup
 		$this->deleteValidApiKey();
