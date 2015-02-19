@@ -30,7 +30,7 @@ class Bootstrap
 		require_once 'Services/GameService.php';
 		
 		require_once 'Models/Model.php';
-		require_once 'Models/APIKeyModel.php';
+		require_once 'Models/UserModel.php';
 		require_once 'Models/GameModel.php';
 		
 		require_once 'Results/ActionResult.php';
@@ -60,7 +60,8 @@ class Bootstrap
 					new SecureUniqueIdFactory()))
 		);
 		$authRouting->Actions = [
-			"Auth" => "APIKey"
+			"Auth" => "Login",
+			"Index" => "Login"
 		];
 		$routeConfig->AddRoute($authRouting);
 		

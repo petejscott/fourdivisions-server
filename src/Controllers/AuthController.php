@@ -16,10 +16,17 @@ class AuthController extends Controller
 		$this->apiService = $apiService;
 	}
 	
-	public function PUT_APIKey($params)
+	public function GET_Login($params)
+	{
+		return new ViewResult('LoginView', new UserModel());
+	}
+	
+	public function POST_Login($params)
 	{
 		// validate params and verb
 		$this->validateParams(array('email', 'password'), $params);
+		
+		$model = new UserModel();
 		
 		// verify some hardcoded values 
 		// (TODO: replace this with an actual user implementation)
@@ -47,17 +54,36 @@ class AuthController extends Controller
 		}
 		
 		// make sure we have a user Id
-		if ($userId === 0) throw new OutOfBoundsException("Invalid credentials");
+		if ($userId === 0) 
+		{
+			//throw new OutOfBoundsException("Invalid credentials");
+			$model->AddError("Invalid Credentials");
+			if ($this->IsXMLHTTPRequest)
+			{
+				return new JSONResult($model);
+			}
+			else 
+			{
+				return new ViewResult('LoginView', $model);
+			}
+		}
 		
 		// okay, create an API Key
 		$key = $this->GetAPIService()->CreateAPIKey($userId);
 		
+		// god this ugly mocking just keeps getting uglier:
+		$model->Id = $userId;
+		$model->Email = $params['email'];
+		$model->APIKey = $key;
+		
 		if ($this->IsXMLHTTPRequest)
 		{
-			return new JSONResult(new APIKeyModel($key));
+			// return the key in a json response so the client can 
+			// manage it all by itself.
+			return new JSONResult($model);
 		}
 		
-		return new RawResult(new APIKeyModel($key));
+		return new ViewResult('UserView', $model);
 	}
 	
 }
