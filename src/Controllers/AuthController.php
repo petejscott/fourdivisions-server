@@ -5,6 +5,8 @@ class AuthController extends Controller
 
 	private $apiService = null;
 	
+	protected $defaultModel = null;
+	
 	public function GetAPIService()
 	{
 		return $this->apiService;
@@ -12,26 +14,22 @@ class AuthController extends Controller
 	
 	public function __construct(APIService $apiService)
 	{
+		$this->defaultModel = new UserModel();
+		
 		if ($apiService === null) throw new InvalidArgumentException('Null $apiService');
 		$this->apiService = $apiService;
 	}
 	
-	public function GET_Login($params, $model = null)
-	{
-		if ($model === null) $model = new UserModel();
-		$model = $this->SetModelData($params, $model, ["Email", "Password"]);
-		
+	protected $autoBindings_GET_Login = ["Email", "Password"];
+	public function GET_Login(array $params, UserModel $model)
+	{		
 		return new ViewResult('LoginView', $model);
 	}
 	
-	public function POST_Login($params, $model = null)
-	{
-		if ($model === null) $model = new UserModel();
-		$model = $this->SetModelData($params, $model, ["Email", "Password"]);
-		
-		// validate params and verb
-		$this->validateParams(array('Email', 'Password'), $params);
-		
+	protected $autoBindings_POST_Login = ["Email", "Password"];
+	protected $expectedParams_POST_Login = ["Email", "Password"];
+	public function POST_Login(array $params, UserModel $model)
+	{		
 		// verify some hardcoded values 
 		// (TODO: replace this with an actual user implementation)
 		$validCredentials = [

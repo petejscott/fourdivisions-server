@@ -1,6 +1,6 @@
 <?php 
 
-class JSONResult extends ActionResult
+class JSONResult extends ActionResult implements IPrintableResult
 {
 	public function Render()
 	{

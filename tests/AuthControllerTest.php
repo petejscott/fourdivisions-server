@@ -11,10 +11,9 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$ac = new AuthController(
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
-		$apikey = $ac->POST_Login(
-			[
-			"Password"=>"fakepassword"
-			]);
+		$apikey = $ac->Execute(
+			"POST_Login",
+			["Password"=>"fakepassword"]);
 	}
 	
 	/**
@@ -26,10 +25,9 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$ac = new AuthController(
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
-		$apikey = $ac->POST_Login(
-			[
-			"Email"=>"fake@example.com"
-			]);
+		$apikey = $ac->Execute(
+			"POST_Login",
+			["Email"=>"fake@example.com"]);
 	}
 	
 	public function testCreateAPIKeyWithInvalidCredentialsReturnsModelWIthError()
@@ -41,7 +39,8 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 			[
 			"Email"=>"fake@example.com",
 			"Password"=>"fakepassword"
-			]);
+			],
+			new UserModel());
 		
 		$usermodel = $apikey->GetModel();
 		$this->assertTrue($usermodel instanceof UserModel);
@@ -55,7 +54,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(
 				new MemcacheStorage(
 					new SecureUniqueIdFactory())));
-		$result = $ac->GET_Login([]);
+		$result = $ac->GET_Login([], new UserModel());
 		
 		$this->assertTrue($result instanceof ViewResult);
 		$this->assertTrue($result->GetModel() instanceof UserModel);
@@ -66,7 +65,8 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
 		
 		$ac = new AuthController($as);
-		$result = $ac->POST_Login(
+		$result = $ac->Execute(
+			"POST_Login",
 			[
 			"Email"=>"user1@example.com",
 			"Password"=>"user1password"
@@ -81,32 +81,32 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 	
 	public function testModelDataSetIgnoresUnspecifiedParameters()
 	{
-		$expectedModelId = 0;
+		$expectedModelEmail = "test@example.com";
 		
 		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
 		$ac = new AuthController($as);
-		$result = $ac->GET_Login(
-			[
-			"Id"=>9999
-			]);
+		$result = $ac->Execute(
+			"GET_Login",
+			["Email"=>$expectedModelEmail]);
 			
 		$model = $result->GetModel();
 		
-		$this->assertEquals($expectedModelId, $model->Id);
+		$this->assertEquals($expectedModelEmail, $model->Email);
 	}
 	
-	public function testModelDataSetUsesAllowedParameters()
+	public function testModelDataSetUsesOnlyAllowedParameters()
 	{
-		$expectedModelId = 9999;
+		$expectedModelEmail = "test@example.com";
 		
 		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
 		$ac = new AuthController($as);
-		$model = $ac->SetModelData(
-			["Id"=>$expectedModelId],
-			new UserModel(),
-			["Id"]);
+		$result = $ac->Execute(
+			"GET_Login",
+			["Email"=>$expectedModelEmail]);
+			
+		$model = $result->GetModel();
 		
-		$this->assertEquals($expectedModelId, $model->Id);
+		$this->assertEquals($expectedModelEmail, $model->Email);
 	}
 
 }

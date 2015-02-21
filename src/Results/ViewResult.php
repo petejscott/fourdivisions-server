@@ -1,6 +1,6 @@
 <?php 
 
-class ViewResult extends ActionResult
+class ViewResult extends ActionResult implements IPrintableResult
 {
 	private $viewPath = "/var/www/sites/fourdivisions-server/src/Views/";
 	

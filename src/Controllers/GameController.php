@@ -6,6 +6,8 @@ class GameController extends Controller
 	private $apiService = null;
 	private $gameService = null;
 	
+	protected $defaultModel = null;
+	
 	public function GetAPIService()
 	{
 		return $this->apiService;
@@ -17,12 +19,15 @@ class GameController extends Controller
 	
 	public function __construct(APIService $apiService, GameService $gameService)
 	{
+		$this->defaultModel = new GameModel();
+		
 		if ($apiService === null) throw new InvalidArgumentException('Null $apiService');
 		if ($gameService === null) throw new InvalidArgumentException('Null $gameService');
 		$this->apiService = $apiService;
 		$this->gameService = $gameService;
 	}
 	
+	protected $expectedParams_GET_Game = ["apikey", "gameId"];
 	public function GET_Game($params, $model = null) 
 	{
 		if ($model === null) $model = new GameModel();
@@ -58,9 +63,9 @@ class GameController extends Controller
 		
 		return new ViewResult('GameView', $model);
 	}
+	
 	public function PUT_Game($params, $model = null)
 	{
-		if ($model === null) $model = new GameModel();
 		throw new BadMethodCallException("Not implemented");
 	}
 	

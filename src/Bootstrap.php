@@ -33,6 +33,7 @@ class Bootstrap
 		require_once 'Models/UserModel.php';
 		require_once 'Models/GameModel.php';
 		
+		require_once 'Results/IPrintableResult.php';
 		require_once 'Results/ActionResult.php';
 		require_once 'Results/RawResult.php';
 		require_once 'Results/RedirectResult.php';
