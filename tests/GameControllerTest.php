@@ -15,10 +15,9 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
-		$result = $gc->GET_Game(
-			[
-				"apikey"=>$apikey
-			]);
+		$result = $gc->Execute(
+			"GET_Game",
+			["apikey"=>$apikey]);
 	}
 	
 	/**
@@ -34,10 +33,9 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
-		$result = $gc->GET_Game(
-			[
-				"gameId"=>"4d.game.empty"
-			]);
+		$result = $gc->Execute(
+			"GET_Game",
+			["gameId"=>"4d.game.empty"]);
 	}
 	
 	public function testGetGame()
@@ -49,7 +47,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory())),
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
-		$result = $gc->GET_Game(
+		$result = $gc->Execute(
+			"GET_Game",
 			[
 				"gameId"=>"4d.game.54dff62b775906.47811541",
 				"apikey"=>$apikey

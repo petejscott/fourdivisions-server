@@ -35,12 +35,12 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$ac = new AuthController(
 			new APIService(new MemcacheStorage(new SecureUniqueIdFactory()))
 		);
-		$apikey = $ac->POST_Login(
+		$apikey = $ac->Execute(
+			"POST_Login",
 			[
 			"Email"=>"fake@example.com",
 			"Password"=>"fakepassword"
-			],
-			new UserModel());
+			]);
 		
 		$usermodel = $apikey->GetModel();
 		$this->assertTrue($usermodel instanceof UserModel);
@@ -54,7 +54,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 			new APIService(
 				new MemcacheStorage(
 					new SecureUniqueIdFactory())));
-		$result = $ac->GET_Login([], new UserModel());
+		$result = $ac->Execute("POST_Login", ["Email"=>"x","Password"=>"y"]);
 		
 		$this->assertTrue($result instanceof ViewResult);
 		$this->assertTrue($result->GetModel() instanceof UserModel);

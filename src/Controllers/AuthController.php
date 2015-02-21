@@ -21,14 +21,14 @@ class AuthController extends Controller
 	}
 	
 	protected $autoBindings_GET_Login = ["Email", "Password"];
-	public function GET_Login(array $params, UserModel $model)
+	protected function GET_Login(array $params, UserModel $model)
 	{		
 		return new ViewResult('LoginView', $model);
 	}
 	
 	protected $autoBindings_POST_Login = ["Email", "Password"];
 	protected $expectedParams_POST_Login = ["Email", "Password"];
-	public function POST_Login(array $params, UserModel $model)
+	protected function POST_Login(array $params, UserModel $model)
 	{		
 		// verify some hardcoded values 
 		// (TODO: replace this with an actual user implementation)

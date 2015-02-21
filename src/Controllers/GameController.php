@@ -28,7 +28,7 @@ class GameController extends Controller
 	}
 	
 	protected $expectedParams_GET_Game = ["apikey", "gameId"];
-	public function GET_Game($params, $model = null) 
+	protected function GET_Game($params, $model = null) 
 	{
 		if ($model === null) $model = new GameModel();
 		
@@ -62,11 +62,6 @@ class GameController extends Controller
 		}
 		
 		return new ViewResult('GameView', $model);
-	}
-	
-	public function PUT_Game($params, $model = null)
-	{
-		throw new BadMethodCallException("Not implemented");
 	}
 	
 }
