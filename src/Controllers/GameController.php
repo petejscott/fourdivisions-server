@@ -29,7 +29,7 @@ class GameController extends Controller
 	
 	protected $expectedParams_GET_Game = ["APIKey", "Id"];
 	protected $autoBindings_GET_Game = ["APIKey", "Id"];
-	protected function GET_Game($params, GameModel $model) 
+	protected function GET_Game(GameModel $model) 
 	{	
 		// validate the provided API Key
 		$userId = $this->GetAPIService()->ValidateAPIKey($model->APIKey);

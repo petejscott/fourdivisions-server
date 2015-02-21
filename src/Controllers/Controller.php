@@ -57,7 +57,7 @@ abstract class Controller
 		$model = $this->autobindModel($method, $params);
 		$this->verifyRequiredParams($method, $params);
 
-		$result = $this->$method($params, $model);
+		$result = $this->$method($model);
 		
 		if ($result instanceof IPrintableResult || $result instanceof IPrintableResult) 
 		{
