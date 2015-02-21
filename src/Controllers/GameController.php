@@ -27,11 +27,11 @@ class GameController extends Controller
 		$this->gameService = $gameService;
 	}
 	
-	protected $expectedParams_GET_Game = ["apikey", "gameId"];
+	protected $expectedParams_GET_Game = ["APIKey", "Id"];
 	protected function GET_Game($params, GameModel $model) 
 	{	
 		// validate the provided API Key
-		$userId = $this->GetAPIService()->ValidateAPIKey($params['apikey']);
+		$userId = $this->GetAPIService()->ValidateAPIKey($params['APIKey']);
 		if ($userId == null) throw new OutOfBoundsException("Invalid API Key; try authenticating");
 		// TODO: rather than throw an exception, maybe redirect to an auth mechanism? Or add an error to the model 
 		// and move on.
@@ -39,7 +39,7 @@ class GameController extends Controller
 		// TODO: future code: load a User using userId, and validate user can view this game
 		
 		// get the game
-		$game = $this->GetGameService()->GetGame($params['gameId']);
+		$game = $this->GetGameService()->GetGame($params['Id']);
 		if ($game === null) throw new OutOfBoundsException("Invalid Game; check the gameId");
 		// throw an exception? Seems wrong. Probably add an error to the model and skip the population of it.
 

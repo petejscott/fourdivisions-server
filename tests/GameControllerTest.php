@@ -17,7 +17,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		);
 		$result = $gc->Execute(
 			"GET_Game",
-			["apikey"=>$apikey]);
+			["APIKey"=>$apikey]);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		);
 		$result = $gc->Execute(
 			"GET_Game",
-			["gameId"=>"4d.game.empty"]);
+			["Id"=>"4d.game.empty"]);
 	}
 	
 	public function testGetGame()
@@ -50,8 +50,8 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 		$result = $gc->Execute(
 			"GET_Game",
 			[
-				"gameId"=>"4d.game.54dff62b775906.47811541",
-				"apikey"=>$apikey
+				"Id"=>"4d.game.54dff62b775906.47811541",
+				"APIKey"=>$apikey
 			]);
 		
 		$gameModel = $result->GetModel();
