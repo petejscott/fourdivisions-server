@@ -28,10 +28,11 @@ class GameController extends Controller
 	}
 	
 	protected $expectedParams_GET_Game = ["APIKey", "Id"];
+	protected $autoBindings_GET_Game = ["APIKey", "Id"];
 	protected function GET_Game($params, GameModel $model) 
 	{	
 		// validate the provided API Key
-		$userId = $this->GetAPIService()->ValidateAPIKey($params['APIKey']);
+		$userId = $this->GetAPIService()->ValidateAPIKey($model->APIKey);
 		if ($userId == null) throw new OutOfBoundsException("Invalid API Key; try authenticating");
 		// TODO: rather than throw an exception, maybe redirect to an auth mechanism? Or add an error to the model 
 		// and move on.
@@ -39,14 +40,13 @@ class GameController extends Controller
 		// TODO: future code: load a User using userId, and validate user can view this game
 		
 		// get the game
-		$game = $this->GetGameService()->GetGame($params['Id']);
+		$game = $this->GetGameService()->GetGame($model->Id);
 		if ($game === null) throw new OutOfBoundsException("Invalid Game; check the gameId");
 		// throw an exception? Seems wrong. Probably add an error to the model and skip the population of it.
 
 		// if all went well, populate the GameModel with data from the storage mechanism.
 		if ($game !== null)
 		{
-			$model->Id = $game->Id;
 			$model->Plys = $game->Plys;
 		}
 		
