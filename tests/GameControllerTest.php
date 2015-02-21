@@ -16,9 +16,9 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
-			array(
-				"apikey"=>$apikey), 
-			"GET");
+			[
+				"apikey"=>$apikey
+			]);
 	}
 	
 	/**
@@ -35,9 +35,9 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
-			array(
-				"gameId"=>"4d.game.empty"), 
-			"GET");
+			[
+				"gameId"=>"4d.game.empty"
+			]);
 	}
 	
 	public function testGetGame()
@@ -50,10 +50,10 @@ class GameControllerTest extends PHPUnit_Framework_TestCase
 			new GameService(new FileStorage(new SimpleUniqueIdFactory()))
 		);
 		$result = $gc->GET_Game(
-			array(
+			[
 				"gameId"=>"4d.game.54dff62b775906.47811541",
-				"apikey"=>$apikey), 
-			"GET");
+				"apikey"=>$apikey
+			]);
 		
 		$gameModel = $result->GetModel();
 		$this->assertTrue($result instanceof ViewResult);
