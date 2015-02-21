@@ -23,12 +23,12 @@ class GameController extends Controller
 		$this->gameService = $gameService;
 	}
 	
-	public function GET_Game($params) 
+	public function GET_Game($params, $model = null) 
 	{
+		if ($model === null) $model = new GameModel();
+		
 		// validate params 
 		$this->validateParams(array('apikey', 'gameId'), $params);
-		
-		$model = new GameModel();
 	
 		// validate the provided API Key
 		$userId = $this->GetAPIService()->ValidateAPIKey($params['apikey']);
@@ -58,8 +58,9 @@ class GameController extends Controller
 		
 		return new ViewResult('GameView', $model);
 	}
-	public function PUT_Ply($params)
+	public function PUT_Game($params, $model = null)
 	{
+		if ($model === null) $model = new GameModel();
 		throw new BadMethodCallException("Not implemented");
 	}
 	

@@ -16,17 +16,18 @@ class AuthController extends Controller
 		$this->apiService = $apiService;
 	}
 	
-	public function GET_Login($params)
+	public function GET_Login($params, $model = null)
 	{
-		return new ViewResult('LoginView', new UserModel());
+		if ($model === null) $model = new UserModel();
+		return new ViewResult('LoginView', $model);
 	}
 	
-	public function POST_Login($params)
+	public function POST_Login($params, $model = null)
 	{
+		if ($model === null) $model = new UserModel();
+		
 		// validate params and verb
 		$this->validateParams(array('email', 'password'), $params);
-		
-		$model = new UserModel();
 		
 		// verify some hardcoded values 
 		// (TODO: replace this with an actual user implementation)
