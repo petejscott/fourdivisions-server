@@ -19,6 +19,8 @@ class AuthController extends Controller
 	public function GET_Login($params, $model = null)
 	{
 		if ($model === null) $model = new UserModel();
+		$model = $this->SetModelData($params, $model, ["email", "password"]);
+		
 		return new ViewResult('LoginView', $model);
 	}
 	

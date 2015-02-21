@@ -78,6 +78,36 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		// cleanup
 		$as->RevokeAPIKey($apikey);
 	}
+	
+	public function testModelDataSetIgnoresUnspecifiedParameters()
+	{
+		$expectedModelId = 0;
+		
+		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
+		$ac = new AuthController($as);
+		$result = $ac->GET_Login(
+			[
+			"Id"=>9999
+			]);
+			
+		$model = $result->GetModel();
+		
+		$this->assertEquals($expectedModelId, $model->Id);
+	}
+	
+	public function testModelDataSetUsesAllowedParameters()
+	{
+		$expectedModelId = 9999;
+		
+		$as = new APIService(new MemCacheStorage(new SecureUniqueIdFactory()));
+		$ac = new AuthController($as);
+		$model = $ac->SetModelData(
+			["Id"=>$expectedModelId],
+			new UserModel(),
+			["Id"]);
+		
+		$this->assertEquals($expectedModelId, $model->Id);
+	}
 
 }
 

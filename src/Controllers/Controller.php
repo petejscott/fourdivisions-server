@@ -27,6 +27,19 @@ abstract class Controller
 		return $result;
 	}
 	
+	public function SetModelData(array $params, Model $model, $allowedParameters)
+	{
+		foreach($params as $key => $value)
+		{
+			if (!in_array($key, $allowedParameters)) continue;
+			if (property_exists($model, $key))
+			{
+				$model->$key = $value;
+			}
+		}
+		return $model;
+	}
+	
 }
 
 ?>
