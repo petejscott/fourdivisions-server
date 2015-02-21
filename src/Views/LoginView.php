@@ -24,9 +24,9 @@
 	
 		<form method="POST" action="?controller=Auth&action=Auth">
 			<label for="email">Email</label>
-			<input type="email" name="email" id="email" placeholder="bob@example.com" />
+			<input type="email" name="Email" id="email" placeholder="bob@example.com" />
 			<label for="password">Password</label>
-			<input type="password" name="password" id="password" />
+			<input type="password" name="Password" id="password" />
 			<input type="submit" value="Log In" />
 		</form>
 		

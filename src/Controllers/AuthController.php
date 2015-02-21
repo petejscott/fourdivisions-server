@@ -19,7 +19,7 @@ class AuthController extends Controller
 	public function GET_Login($params, $model = null)
 	{
 		if ($model === null) $model = new UserModel();
-		$model = $this->SetModelData($params, $model, ["email", "password"]);
+		$model = $this->SetModelData($params, $model, ["Email", "Password"]);
 		
 		return new ViewResult('LoginView', $model);
 	}
@@ -27,9 +27,10 @@ class AuthController extends Controller
 	public function POST_Login($params, $model = null)
 	{
 		if ($model === null) $model = new UserModel();
+		$model = $this->SetModelData($params, $model, ["Email", "Password"]);
 		
 		// validate params and verb
-		$this->validateParams(array('email', 'password'), $params);
+		$this->validateParams(array('Email', 'Password'), $params);
 		
 		// verify some hardcoded values 
 		// (TODO: replace this with an actual user implementation)
@@ -49,8 +50,8 @@ class AuthController extends Controller
 		$userId = 0;
 		foreach($validCredentials as $id => $credentials)
 		{
-			if ($credentials["email"] == $params["email"] && 
-				$credentials["password"] == $params["password"])
+			if ($credentials["email"] == $model->Email && 
+				$credentials["password"] == $model->Password)
 			{
 				$userId = $id;
 			}
@@ -76,7 +77,6 @@ class AuthController extends Controller
 		
 		// god this ugly mocking just keeps getting uglier:
 		$model->Id = $userId;
-		$model->Email = $params['email'];
 		$model->APIKey = $key;
 		
 		if ($this->IsXMLHTTPRequest)

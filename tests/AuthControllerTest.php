@@ -13,7 +13,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		);
 		$apikey = $ac->POST_Login(
 			[
-			"password"=>"fakepassword"
+			"Password"=>"fakepassword"
 			]);
 	}
 	
@@ -28,7 +28,7 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		);
 		$apikey = $ac->POST_Login(
 			[
-			"email"=>"fake@example.com"
+			"Email"=>"fake@example.com"
 			]);
 	}
 	
@@ -39,8 +39,8 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		);
 		$apikey = $ac->POST_Login(
 			[
-			"email"=>"fake@example.com",
-			"password"=>"fakepassword"
+			"Email"=>"fake@example.com",
+			"Password"=>"fakepassword"
 			]);
 		
 		$usermodel = $apikey->GetModel();
@@ -68,8 +68,8 @@ class AuthControllerTest extends PHPUnit_Framework_TestCase
 		$ac = new AuthController($as);
 		$result = $ac->POST_Login(
 			[
-			"email"=>"user1@example.com",
-			"password"=>"user1password"
+			"Email"=>"user1@example.com",
+			"Password"=>"user1password"
 			]);
 		$apikey = $result->GetModel()->APIKey;
 		$this->assertTrue(strlen($apikey) > 32);
