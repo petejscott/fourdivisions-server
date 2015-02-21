@@ -4,7 +4,7 @@ abstract class Controller
 {	
 	public $IsXMLHTTPRequest = false;
 	
-	protected function ValidateParams(array $expected, $params)
+	private function validateParams(array $expected, $params)
 	{
 		foreach($expected as $expectedParam)
 		{
@@ -15,7 +15,7 @@ abstract class Controller
 		}
 	}
 	
-	protected function SetModelData(array $params, Model $model, $allowedParameters)
+	private function setModelData(array $params, Model $model, $allowedParameters)
 	{
 		foreach($params as $key => $value)
 		{
@@ -28,7 +28,7 @@ abstract class Controller
 		return $model;
 	}
 	
-	public function Execute($method, $params) // : ActionResult
+	private function autobindModel($method, $params)
 	{
 		$model = null;
 		if (property_exists($this, "defaultModel"))
@@ -37,16 +37,26 @@ abstract class Controller
 			$bindingProperty = "autoBindings_".$method;
 			if (property_exists($this, $bindingProperty))
 			{
-				$model = $this->SetModelData($params, $model, $this->$bindingProperty);
+				$model = $this->setModelData($params, $model, $this->$bindingProperty);
 			}
 		}
-		
+		return $model;
+	}
+	
+	private function verifyRequiredParams($method, $params)
+	{
 		$parameterProperty = "expectedParams_".$method;
 		if (property_exists($this, $parameterProperty))
 		{
 			$this->validateParams($this->$parameterProperty, $params);
 		}
-		
+	}
+	
+	public function Execute($method, $params) // : ActionResult
+	{
+		$model = $this->autobindModel($method, $params);
+		$this->verifyRequiredParams($method, $params);
+
 		$result = $this->$method($params, $model);
 		
 		if ($result instanceof IPrintableResult || $result instanceof IPrintableResult) 
