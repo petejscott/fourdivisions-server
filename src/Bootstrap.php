@@ -28,6 +28,7 @@ class Bootstrap
 		
 		require_once 'Services/APIService.php';
 		require_once 'Services/GameService.php';
+		require_once 'Services/UserService.php';
 		
 		require_once 'Models/Model.php';
 		require_once 'Models/UserModel.php';
